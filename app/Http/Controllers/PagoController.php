@@ -11,7 +11,8 @@ class PagoController extends Controller
     public function makePayment(Request $request){
         $validator = Validator::make($request->all(), [
             'value' => ['required', 'numeric'],
-            'title' => ['required']
+            'title' => ['required'],
+            'picture' => ['required'],
         ]);
 
         $paymentPlatform = resolve(MercadoPagoCheckout::class);

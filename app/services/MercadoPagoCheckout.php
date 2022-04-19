@@ -29,11 +29,11 @@ class MercadoPagoCheckout{
     }
 
     public function handlePayment(Request $request){
-        $this->createPreference($request->title, $request->value);
+        $this->createPreference($request->title, $request->value, $request->picture);
     }
     
     
-    public function createPreference($title, $value){
+    public function createPreference($title, $value, $picture){
         SDK::initialize();
 
         $this->resolveat();
@@ -44,7 +44,7 @@ class MercadoPagoCheckout{
 
         $preference->payer = $this->createPayer();
 
-        $preference->items = $this->createItem($title, $value);
+        $preference->items = $this->createItem($title, $value, $picture);
 
         $preference->payment_methods = $this->exclude_payment_methods();
         
@@ -54,7 +54,7 @@ class MercadoPagoCheckout{
 
         $preference->external_reference = 'piere_07@hotmail.com';
 
-        $preference->notification_url = 'localhost/mercadopago/public/api/notification?source_news=webhooks';
+        $preference->notification_url = 'https://piere-mercadopago.herokuapp.com/api/notification?source_news=webhooks';
 
         $preference->save();
 
@@ -63,12 +63,13 @@ class MercadoPagoCheckout{
         return $response;
     }
 
-    public function createItem($title, $value, $quantity = 1): array{
+    public function createItem($title, $value, $picture, $quantity = 1): array{
         $item = new Item();
 
         $item->title = $title;
         $item->quantity = $quantity;
         $item->unit_price = $value;
+        $item->picture_url = $picture;
 
         return array($item);
     }
