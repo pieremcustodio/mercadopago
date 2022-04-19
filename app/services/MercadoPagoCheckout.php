@@ -7,6 +7,7 @@ use MercadoPago\Preference;
 use MercadoPago\Item;
 use MercadoPago\Payer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MercadoPagoCheckout{
 
@@ -28,7 +29,7 @@ class MercadoPagoCheckout{
     }
 
     public function handlePayment(Request $request){
-        $this->createPreference($request->value, $request->title);
+        $this->createPreference($request->title, $request->value);
     }
     
     
@@ -53,13 +54,13 @@ class MercadoPagoCheckout{
 
         $preference->external_reference = 'piere_07@hotmail.com';
 
+        $preference->notification_url = 'localhost/mercadopago/public/api/notification?source_news=webhooks';
+
         $preference->save();
 
-        return array(
-            'init_point' => $preference->init_point,
-            'external_reference' => $preference->external_reference,
-            'preference_code' => $preference->id
-        );
+        $response = $this->validate_payment_result($preference);
+
+        return $response;
     }
 
     public function createItem($title, $value, $quantity = 1): array{
@@ -72,16 +73,18 @@ class MercadoPagoCheckout{
         return array($item);
     }
 
-    public function createPayer(): array{
+    public function createPayer(){
         $payer = new Payer();
 
         $payer->name = 'Lalo';
         $payer->surname = 'Landa';
         $payer->email = 'test_user_46542185@testuser.com';
-        $payer->phone = [
-            'area_code' => 11,
-            'phone' => 959007753,
-        ];
+        $payer->phone = array(
+            'area_code' => '11',
+            'phone' => '959007753',
+        );
+
+        return $payer;
     }
 
     public function exclude_payment_methods(): array
@@ -100,5 +103,49 @@ class MercadoPagoCheckout{
             'failure' => 'https://pieremcustodio-mp-commerce-php.herokuapp.com/failure.php',
             'pending' => 'https://pieremcustodio-mp-commerce-php.herokuapp.com/pending.php'
         ];
+    }
+
+    public function handleNotification(Request $request)
+    {
+        $paymentId = $request->data['id'];
+
+        Storage::put("mercadopago/{$paymentId}.json", $request->getContent());
+
+        $payment = $this->searchPayment($paymentId);
+
+        if ($payment && $payment->status == 'approved') {
+            return $payment->external_reference;
+        };
+
+        return response()->json($request->all(), 201);
+    }
+
+    public function searchPayment($paymentId)
+    {
+        SDK::initialize();
+        $this->resolveAccessToken();
+
+        return Payment::find_by_id($paymentId);
+    }
+    
+    public function validate_payment_result($data){
+        if($data->id === null) {
+            $error_message = 'Error desconocido';
+    
+            if($data->error !== null) {
+                $sdk_error_message = $data->error->message;
+                $error_message = $sdk_error_message !== null ? $sdk_error_message : $error_message;
+            }
+
+            return $response = array(
+                'error' => $error_message
+            );
+        }else{
+            return $response = array(
+                'init_point' => $data->init_point,
+                'external_reference' => $data->external_reference,
+                'preference_code' => $data->id
+            );
+        }
     }
 }
