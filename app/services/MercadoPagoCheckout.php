@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class MercadoPagoCheckout{
 
     protected $key;
+    protected $secret;
     protected $integrador_id;
 
     public function __construct(){
