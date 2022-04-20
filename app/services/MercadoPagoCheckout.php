@@ -6,6 +6,7 @@ use MercadoPago\SDK;
 use MercadoPago\Preference;
 use MercadoPago\Item;
 use MercadoPago\Payer;
+use MercadoPago\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
