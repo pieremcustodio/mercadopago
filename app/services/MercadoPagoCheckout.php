@@ -8,6 +8,7 @@ use MercadoPago\Item;
 use MercadoPago\Payer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class MercadoPagoCheckout{
 
@@ -52,7 +53,7 @@ class MercadoPagoCheckout{
 
         $preference->auto_return = 'approved';
 
-        $preference->external_reference = 'piere_07@hotmail.com';
+        $preference->external_reference = Str::random(20);
 
         $preference->notification_url = 'https://piere-mercadopago.herokuapp.com/api/notification?source_news=webhooks';
 
