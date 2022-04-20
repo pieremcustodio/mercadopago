@@ -137,7 +137,7 @@ class MercadoPagoCheckout{
     public function searchPayment($paymentId)
     {
         SDK::initialize();
-        $this->resolveAccessToken();
+        $this->resolveat();
 
         return Payment::find_by_id($paymentId);
     }
