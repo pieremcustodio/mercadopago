@@ -30,7 +30,7 @@ class MercadoPagoCheckout{
     }
 
     public function handlePayment(Request $request){
-        $this->createPreference($request->title, $request->value, $request->picture);
+        return $this->createPreference($request->title, $request->value, $request->picture);
     }
     
     
@@ -59,11 +59,14 @@ class MercadoPagoCheckout{
 
         $preference->save();
 
-        return array(
-            'init_point' => $preference->init_point,
-            'external_reference' => $preference->external_reference,
-            'preference_code' => $preference->id
-        );
+        // return array(
+        //     'init_point' => $preference->init_point,
+        //     'external_reference' => $preference->external_reference,
+        //     'preference_code' => $preference->id
+        // );
+        $response = $this->validate_payment_result($preference);
+
+        return $response;
     }
 
     public function createItem($title, $value, $picture, $quantity = 1): array{
@@ -73,6 +76,7 @@ class MercadoPagoCheckout{
         $item->quantity = $quantity;
         $item->unit_price = $value;
         $item->picture_url = $picture;
+        $item->currency_id = 'PEN';
 
         return array($item);
     }
@@ -94,9 +98,9 @@ class MercadoPagoCheckout{
     public function exclude_payment_methods(): array
     {
         return [
-            'excluded_payment_methods' => [
-                'id' => 'visa'
-            ],
+            'excluded_payment_methods' => array(
+                array('id' => 'visa')
+            ),
             'installments' => 6,
         ];
     }
