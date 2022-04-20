@@ -17,6 +17,7 @@ class NotificacionController extends Controller
 
                 return response()->json([
                     'message' => 'Pago realizado',
+                    'code' => 201,
                 ], 201);
             }
         }
