@@ -70,7 +70,7 @@ class MercadoPagoCheckout{
         return $response;
     }
 
-    public function createItem($title, $value, $picture = 'https://www.mercadopago.com/org-img/MP3/home/logomp3.gif', $itemId = 1234,$quantity = 1): array{
+    public function createItem($title, $value, $picture = 'https://www.mercadopago.com/org-img/MP3/home/logomp3.gif', $itemId = '1234',$quantity = 1): array{
         $item = new Item();
 
         $item->id = $itemId;
