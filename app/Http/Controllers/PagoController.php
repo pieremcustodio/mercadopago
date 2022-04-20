@@ -14,6 +14,10 @@ class PagoController extends Controller
             'title' => ['required'],
         ]);
 
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 401);
+        };
+
         $paymentPlatform = resolve(MercadoPagoCheckout::class);
 
         $response = $paymentPlatform->handlePayment($request);
