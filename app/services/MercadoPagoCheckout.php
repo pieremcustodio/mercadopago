@@ -78,7 +78,7 @@ class MercadoPagoCheckout{
         $item->description = 'Dispositivo móvil de Tienda e-commerce';
         $item->quantity = $quantity;
         $item->unit_price = $value;
-        //$item->picture_url = $picture;
+        $item->picture_url = $picture;
 
         return array($item);
     }
@@ -91,12 +91,12 @@ class MercadoPagoCheckout{
         $payer->email = 'test_user_46542185@testuser.com';
         $payer->phone = array(
             'area_code' => '11',
-            'phone' => '959007753',
+            'phone' => '932932932',
         );
 
         $payer->address = array(
-            'street_name' => 'Av. Los Olivos 1534',
-            'street_number' => 123,
+            'street_name' => 'street',
+            'street_number' => '123',
             'zip_code' => '15102',
         );
 
@@ -107,6 +107,9 @@ class MercadoPagoCheckout{
     {
         return [
             'excluded_payment_methods' => array(
+                array('id' => 'visa')
+            ),
+            'excluded_payment_types' => array(
                 array('id' => 'visa')
             ),
             'installments' => 6,
@@ -157,7 +160,11 @@ class MercadoPagoCheckout{
                 'error' => $error_message
             );
         }else{
-            return $response = $data;
+            return $response = array(
+                'init_point' => $data->init_point,
+                'external_reference' => $data->external_reference,
+                'preference_code' => $data->id,
+            );
         }
     }
 }

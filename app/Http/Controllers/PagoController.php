@@ -22,6 +22,6 @@ class PagoController extends Controller
 
         $response = $paymentPlatform->handlePayment($request);
 
-        return response()->json($response);
+        return response()->json($response, 201);
     }
 }
