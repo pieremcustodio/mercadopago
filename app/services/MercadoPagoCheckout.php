@@ -157,11 +157,7 @@ class MercadoPagoCheckout{
                 'error' => $error_message
             );
         }else{
-            return $response = array(
-                'init_point' => $data->init_point,
-                'external_reference' => $data->external_reference,
-                'preference_code' => $data->id
-            );
+            return $response = $data;
         }
     }
 }
