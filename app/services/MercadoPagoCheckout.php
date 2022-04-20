@@ -29,11 +29,11 @@ class MercadoPagoCheckout{
     }
 
     public function handlePayment(Request $request){
-        return $this->createPreference($request->title, $request->value, $request->picture);
+        return $this->createPreference($request->title, $request->value);
     }
     
     
-    public function createPreference($title, $value, $picture){
+    public function createPreference($title, $value){
         SDK::initialize();
 
         $this->resolveat();
@@ -44,7 +44,7 @@ class MercadoPagoCheckout{
 
         $preference->payer = $this->createPayer();
 
-        $preference->items = $this->createItem($title, $value, $picture);
+        $preference->items = $this->createItem($title, $value);
 
         $preference->payment_methods = $this->exclude_payment_methods();
         
@@ -68,7 +68,7 @@ class MercadoPagoCheckout{
         return $response;
     }
 
-    public function createItem($title, $value, $picture, $itemId = 1234,$quantity = 1): array{
+    public function createItem($title, $value, $picture = 'https://www.mercadopago.com/org-img/MP3/home/logomp3.gif', $itemId = 1234,$quantity = 1): array{
         $item = new Item();
 
         $item->id = $itemId;
