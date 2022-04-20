@@ -68,14 +68,14 @@ class MercadoPagoCheckout{
         return $response;
     }
 
-    public function createItem($title, $value, $picture, $quantity = 1): array{
+    public function createItem($title, $value, $picture, $itemId = 1234,$quantity = 1): array{
         $item = new Item();
 
+        $item->id = $itemId;
         $item->title = $title;
         $item->quantity = $quantity;
         $item->unit_price = $value;
         $item->picture_url = $picture;
-        $item->currency_id = 'PEN';
 
         return array($item);
     }
