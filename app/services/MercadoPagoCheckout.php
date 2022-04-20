@@ -85,6 +85,7 @@ class MercadoPagoCheckout{
 
         $payer->name = 'Lalo';
         $payer->surname = 'Landa';
+        $payer->email = 'test_user_46542185@testuser.com';
         $payer->phone = array(
             'area_code' => '11',
             'phone' => '959007753',
