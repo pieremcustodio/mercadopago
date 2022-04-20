@@ -100,9 +100,9 @@ class MercadoPagoCheckout{
 
     public function url_web():array{
         return [
-            'success' => 'https://pieremcustodio-mp-commerce-php.herokuapp.com/success.php',
-            'failure' => 'https://pieremcustodio-mp-commerce-php.herokuapp.com/failure.php',
-            'pending' => 'https://pieremcustodio-mp-commerce-php.herokuapp.com/pending.php'
+            'success' => 'https://pieremc-mpfront.herokuapp.com/success',
+            'failure' => 'https://pieremc-mpfront.herokuapp.com/failure',
+            'pending' => 'https://pieremc-mpfront.herokuapp.com/pending'
         ];
     }
 
