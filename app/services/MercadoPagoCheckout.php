@@ -73,6 +73,7 @@ class MercadoPagoCheckout{
 
         $item->id = $itemId;
         $item->title = $title;
+        $item->description = 'Dispositivo móvil de Tienda e-commerce';
         $item->quantity = $quantity;
         $item->unit_price = $value;
         $item->picture_url = $picture;
