@@ -58,9 +58,11 @@ class MercadoPagoCheckout{
 
         $preference->save();
 
-        $response = $this->validate_payment_result($preference);
-
-        return $response;
+        return array(
+            'init_point' => $preference->init_point,
+            'external_reference' => $preference->external_reference,
+            'preference_code' => $preference->id
+        );
     }
 
     public function createItem($title, $value, $picture, $quantity = 1): array{
