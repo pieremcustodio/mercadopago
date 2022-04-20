@@ -91,6 +91,12 @@ class MercadoPagoCheckout{
             'phone' => '959007753',
         );
 
+        $payer->address = array(
+            'street_name' => 'Av. Los Olivos 1534',
+            'street_number' => 123,
+            'zip_code' => '15102',
+        );
+
         return $payer;
     }
 
