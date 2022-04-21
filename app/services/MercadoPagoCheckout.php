@@ -97,7 +97,7 @@ class MercadoPagoCheckout{
         $payer->address = array(
             'street_name' => 'street',
             'street_number' => '123',
-            'zip_code' => '15102',
+            'zip_code' => '1234',
         );
 
         return $payer;
