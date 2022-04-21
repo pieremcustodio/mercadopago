@@ -91,7 +91,7 @@ class MercadoPagoCheckout{
         $payer->email = 'test_user_46542185@testuser.com';
         $payer->phone = array(
             'area_code' => '11',
-            'phone' => '932932932',
+            'number' => '932932932',
         );
 
         $payer->address = array(
