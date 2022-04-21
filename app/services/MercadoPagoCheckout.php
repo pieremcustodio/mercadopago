@@ -56,7 +56,7 @@ class MercadoPagoCheckout{
 
         $preference->external_reference = 'piere_07@hotmail.com';
 
-        $preference->notification_url = 'https://piere-mercadopago.herokuapp.com/api/notification?source_news=webhooks';
+        $preference->notification_url = 'https://piere-mercadopago.herokuapp.com/api/notification';
 
         $preference->save();
 
