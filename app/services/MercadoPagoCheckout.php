@@ -56,15 +56,10 @@ class MercadoPagoCheckout{
 
         $preference->external_reference = 'piere_07@hotmail.com';
 
-        $preference->notification_url = 'https://hookb.in/3ONQk8LZGZT7yakkMWaL';
+        $preference->notification_url = 'https://webhook.site/2ec3931c-7f36-4e40-9209-0c9d51714033';
 
         $preference->save();
 
-        // return array(
-        //     'init_point' => $preference->init_point,
-        //     'external_reference' => $preference->external_reference,
-        //     'preference_code' => $preference->id
-        // );
         $response = $this->validate_payment_result($preference);
 
         return $response;
