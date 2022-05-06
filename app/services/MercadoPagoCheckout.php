@@ -111,9 +111,9 @@ class MercadoPagoCheckout{
 
     public function url_web():array{
         return [
-            'success' => 'https://pieremc-mpfront.herokuapp.com/success',
-            'failure' => 'https://pieremc-mpfront.herokuapp.com/failure',
-            'pending' => 'https://pieremc-mpfront.herokuapp.com/pending'
+            'success' => 'https://mp-front-kh5h0f3wl-pieremcustodio.vercel.app/success',
+            'failure' => 'https://mp-front-kh5h0f3wl-pieremcustodio.vercel.app/failure',
+            'pending' => 'https://mp-front-kh5h0f3wl-pieremcustodio.vercel.app/pending'
         ];
     }
 
