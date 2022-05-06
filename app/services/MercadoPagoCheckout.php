@@ -8,11 +8,9 @@ use MercadoPago\Item;
 use MercadoPago\Payer;
 use MercadoPago\Payment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class MercadoPagoCheckout{
 
-    protected $key;
     protected $secret;
     protected $integrador_id;
 
@@ -122,8 +120,6 @@ class MercadoPagoCheckout{
     public function handleNotification(Request $request)
     {
         $paymentId = $request->data['id'];
-
-        Storage::put("mercadopago/{$paymentId}.json", $request->getContent());
 
         $payment = $this->searchPayment($paymentId);
 
